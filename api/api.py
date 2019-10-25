@@ -82,4 +82,12 @@ def put_users():
     return {}
 
 
+@app.route('/user/<id>', methods=['DELETE'])
+def delete_useres(id):
+    for user in users_dict:
+        if user['id'] == int(id):
+            users_dict.remove(user)
+    return {}
+
+
 app.run()
