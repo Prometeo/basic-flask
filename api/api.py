@@ -15,4 +15,18 @@ def home():
     return jsonify(users_dict)
 
 
+@app.route('/user', methods=['GET'])
+def get_user_by_id():
+    # get parameter 'id' from request
+    if 'id' in request.args:
+        id = int(request.args['id'])
+    else:
+        return "Error: No id field provided. Please specify an id."
+
+    for user in users_dict:
+        if user['id'] == id:
+            return jsonify(user)
+    return {}
+
+
 app.run()
