@@ -18,6 +18,7 @@ def home():
 @app.route('/user', methods=['GET'])
 def get_user_by_id():
     # get parameter 'id' from request
+    """ http://127.0.0.1:5000/user?id=1 """
     if 'id' in request.args:
         id = int(request.args['id'])
     else:
@@ -32,11 +33,20 @@ def get_user_by_id():
 
 @app.route('/user/<id>', methods=['GET'])
 def get_user_by_id_in_path(id):
+    """ http://127.0.0.1:5000/user/1"""
     for user in users_dict:
         if user['id'] == int(id):
             return jsonify(user)
 
     return {}
+
+
+@app.route('/user', methods=['POST'])
+def post_users():
+    user = request.get_json()
+    user['id'] = len(users_dict) + 1
+    users_dict.append(user)
+    return jsonify(user)
 
 
 app.run()
