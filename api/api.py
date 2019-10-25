@@ -49,4 +49,28 @@ def post_users():
     return jsonify(user)
 
 
+@app.route('/users', methods=['GET'])
+def get_users():
+    """ 127.0.0.1:5000/users?name=pudge 
+        127.0.0.1:5000/users?name=pudGE&id=2
+        127.0.0.1:5000/users?age=25
+    """
+    users = []
+    for user in users_dict:
+        countProp = 0
+        for arg in request.args:
+            val = user[arg]
+            param = request.args[arg]
+            if isinstance(val, int):
+                param = int(param)
+            if isinstance(val, str):
+                val = val.upper()
+                param = param.upper()
+            if val == param:
+                countProp += 1
+        if countProp == len(request.args):
+            users.append(user)
+    return jsonify(users)
+
+
 app.run()
