@@ -73,4 +73,13 @@ def get_users():
     return jsonify(users)
 
 
+@app.route('/user', methods=['PUT'])
+def put_users():
+    user = request.get_json()
+    for i, u in enumerate(users_dict):
+        if u['id'] == user['id']:
+            users_dict[i] = user
+    return {}
+
+
 app.run()
