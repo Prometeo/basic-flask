@@ -26,6 +26,16 @@ def get_user_by_id():
     for user in users_dict:
         if user['id'] == id:
             return jsonify(user)
+
+    return {}
+
+
+@app.route('/user/<id>', methods=['GET'])
+def get_user_by_id_in_path(id):
+    for user in users_dict:
+        if user['id'] == int(id):
+            return jsonify(user)
+
     return {}
 
 
